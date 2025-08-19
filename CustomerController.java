@@ -1,7 +1,8 @@
-package com.firstspringbootdemo.controllers;
+package com.controllers;
 
-import com.firstspringbootdemo.model.Customer;
-import com.firstspringbootdemo.service.CustomerService;
+import com.model.Customer;
+import com.service.CustomerService;
+import com.service.CustomerService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +12,11 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    CustomerService customerService;
+    CustomerService1 customerService;
 
     @GetMapping("getcustomers")
     public List<Customer> getCustomers() {
-      List<Customer> lc= customerService.getCustomers();
+      List<Customer> lc= customerService.getAllCustomers();
         return lc;
     }
 
@@ -32,6 +33,7 @@ public class CustomerController {
 
     @DeleteMapping("deletecustomer/{id}")
     public boolean deleteCustomer(@PathVariable int id) {
+
         return customerService.deleteCustomer(id);
     }
 

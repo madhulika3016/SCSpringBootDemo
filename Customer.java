@@ -1,9 +1,13 @@
-package com.firstspringbootdemo.model;
+package com.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
 //@Component
+@Entity
 public class Customer {
+    @Id
     int id;
     String firstname;
     String lastname;
