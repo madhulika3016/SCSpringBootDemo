@@ -1,5 +1,6 @@
 package com.service;
 
+import com.advices.CustomerNotFoundException;
 import com.model.Customer;
 import com.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,15 @@ public class CustomerService1 {
         }
 
         // Read by ID
-        public Customer getCustomerById(int id) {
+        public Customer getCustomerById(int id) throws CustomerNotFoundException
+        {
             return repository.findById(id).orElse(null);
         }
 
         // Update
-        public Customer updateCustomer(int id, Customer updatedCustomer) {
-            Customer existing = repository.findById(id).orElse(null);
+        public Customer updateCustomer(int id, Customer updatedCustomer) throws CustomerNotFoundException
+        {
+            Customer existing = repository.getById(id);
             if (existing != null) {
                 existing.setEmail(updatedCustomer.getEmail());
                 existing.setPhone(updatedCustomer.getPhone());
@@ -44,12 +47,22 @@ public class CustomerService1 {
         }
 
         // Delete
-        public boolean deleteCustomer(int id) {
+        public boolean deleteCustomer(int id) throws CustomerNotFoundException
+        {
             if (repository.existsById(id)) {
                 repository.deleteById(id);
                 return true;
             }
             return false;
+        }
+
+   public Customer getCustomerByFirstname(String firstname)
+    {
+        return repository.getCustomerByFirstname(firstname);
+    }
+
+    public List<Customer> getCustomerByRoleSortedByFirstname(String role){
+            return repository.getCustomerByRoleSortedByFirstname(role);
         }
     }
 

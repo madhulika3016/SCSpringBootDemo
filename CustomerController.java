@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.advices.CustomerNotFoundException;
 import com.model.Customer;
 import com.service.CustomerService;
 import com.service.CustomerService1;
@@ -27,14 +28,25 @@ public class CustomerController {
     }
 
     @PutMapping("updatecustomer/{id}")
-    public Customer updateCustomer(@PathVariable int id,@RequestBody  Customer customer) {
+    public Customer updateCustomer(@PathVariable int id,@RequestBody  Customer customer) throws CustomerNotFoundException {
        return customerService.updateCustomer(id,customer);
     }
 
     @DeleteMapping("deletecustomer/{id}")
-    public boolean deleteCustomer(@PathVariable int id) {
+    public boolean deleteCustomer(@PathVariable int id) throws CustomerNotFoundException {
 
         return customerService.deleteCustomer(id);
+    }
+    @GetMapping("getcustomerbyfirstname/{firstname}")
+    public Customer getCustomerByFirstname(@PathVariable String firstname)
+    {
+        return customerService.getCustomerByFirstname(firstname);
+    }
+
+    @GetMapping("getcustomerbyrole/{role}")
+    public List<Customer> getCustomerByRoleSortedByFirstname(@PathVariable String role)
+    {
+        return customerService.getCustomerByRoleSortedByFirstname(role);
     }
 
 
