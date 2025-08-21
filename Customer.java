@@ -1,8 +1,11 @@
 package com.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 //@Component
 @Entity
@@ -16,20 +19,44 @@ public class Customer {
     String active;
     String password;
     String role;
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    Account account;
+
+    @Embedded
+    Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /*@OneToMany
+    @Cascade(CascadeType.ALL)
+    List<Address> addresses;
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }*/
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     public Customer() {
     }
 
-    public Customer(int id, String firstname, String lastname, String email, String phone, String active, String password, String role) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.phone = phone;
-        this.active = active;
-        this.password = password;
-        this.role = role;
-    }
 
     public int getId() {
         return id;
