@@ -9,7 +9,9 @@ import java.util.List;
 
 //@Component
 @Entity
-public class Customer {
+@DiscriminatorColumn(name="Customer1")
+public class Customer extends Person
+{
     @Id
     int id;
     String firstname;
